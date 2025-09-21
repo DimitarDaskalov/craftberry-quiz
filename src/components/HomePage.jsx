@@ -11,10 +11,10 @@ const HomePage = () => {
           suitable for you
         </Heading>
         <Paragraph>
-          Take out test to get a personalised self care <br />
+          Take our test to get a personalised self care <br />
           routine based on your needs.
         </Paragraph>
-        <Button to={"/question1"}>Start the quiz</Button>
+        <Button to="/question/0">Start the quiz</Button>
       </TextAndButtonContainer>
     </Wrapper>
   );

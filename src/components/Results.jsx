@@ -15,7 +15,6 @@ const Results = () => {
   const [wishlist, setWishlist] = useState([]);
   const { answers, resetQuiz } = useQuiz();
 
-  //Helper: sort wishlist items first
   const sortProductsByWishlist = (arr, wishlistArr) => {
     return [...arr].sort((a, b) => {
       const aIn = wishlistArr.includes(a.id) ? 0 : 1;
@@ -24,7 +23,6 @@ const Results = () => {
     });
   };
 
-  // Wishlist toggle
   const toggleWishlist = (id) => {
     let updated;
     if (wishlist.includes(id)) {
@@ -37,7 +35,6 @@ const Results = () => {
     setProducts((prev) => sortProductsByWishlist(prev, updated));
   };
 
-  // Fetch products + filter 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -46,7 +43,6 @@ const Results = () => {
         );
         const data = await res.json();
 
-        // Get saved wishlist
         const storedWishlist =
           JSON.parse(localStorage.getItem("wishlist")) || [];
         setWishlist(storedWishlist);
@@ -56,7 +52,6 @@ const Results = () => {
           .map((a) => String(a).toLowerCase())
           .filter(Boolean);
 
-        // Filter products by answers
         let filtered = data.products;
         if (keywords.length > 0) {
           filtered = data.products.filter((p) =>
@@ -79,7 +74,6 @@ const Results = () => {
     fetchProducts();
   }, [answers]);
 
-  // Retake handler
   const handleRetake = () => {
     setWishlist([]);
     resetQuiz();
@@ -133,7 +127,6 @@ const Results = () => {
       <CardsWrapper>
         <ProductsCards>
           <ProductSlider {...sliderSettings}>
-            {/* Routine Card */}
             <ProductCard>
               <RoutineCard>
                 <RoutineTextsWrapper>
@@ -149,7 +142,6 @@ const Results = () => {
               </RoutineCard>
             </ProductCard>
 
-            {/* Render products */}
             {products.map((product) => (
               <ProductCard key={product.id}>
                 <FavouriteContainer onClick={() => toggleWishlist(product.id)}>
